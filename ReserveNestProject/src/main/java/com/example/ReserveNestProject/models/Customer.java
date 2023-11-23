@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Customer {
 
     @Id
-    private String id;
+    private String _id;
     private String customerName;
     private String customerEmail;
     private String mobile;
@@ -21,9 +21,9 @@ public class Customer {
 
     }
 
-    public Customer(String id, String customerName, String customerEmail,
+    public Customer(String _id, String customerName, String customerEmail,
                     String mobile, String userName, String address) {
-        this.id = id;
+        this._id = _id;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.mobile = mobile;
@@ -32,11 +32,11 @@ public class Customer {
     }
 
     public String getId() {
-        return id;
+        return _id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getCustomerName() {
@@ -82,7 +82,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "id='" + id + '\'' +
+                "id='" + _id + '\'' +
                 ", customerName='" + customerName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
                 ", mobile='" + mobile + '\'' +
