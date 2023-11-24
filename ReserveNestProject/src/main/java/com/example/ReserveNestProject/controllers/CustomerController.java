@@ -52,7 +52,7 @@ public class CustomerController {
 
         customerService.deleteCustomer(_id);
         }
-     @RequestMapping("/customer/{id}")
+     @RequestMapping("/search/{id}")
         private Customer getCustomers(@PathVariable(name = "id")String customerId){
 
         return  customerService.getCustomerById(customerId);

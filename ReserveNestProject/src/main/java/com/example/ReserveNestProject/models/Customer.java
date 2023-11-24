@@ -2,9 +2,7 @@ package com.example.ReserveNestProject.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
 
 @Document(collection = "customers")
 public class Customer {
@@ -12,23 +10,25 @@ public class Customer {
     @Id
     private String _id;
     private String customerName;
-    private String customerEmail;
+    private String email;
     private String mobile;
     private String userName;
     private String address;
+    private String password;
 
     public  Customer(){
 
     }
 
-    public Customer(String _id, String customerName, String customerEmail,
-                    String mobile, String userName, String address) {
+    public Customer(String _id, String customerName, String email,
+                    String mobile, String userName, String address,String password) {
         this._id = _id;
         this.customerName = customerName;
-        this.customerEmail = customerEmail;
+        this.email = email;
         this.mobile = mobile;
         this.userName = userName;
         this.address = address;
+        this.password = password;
     }
 
     public String getId() {
@@ -47,12 +47,12 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public String getCustomerEmail() {
-        return customerEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getMobile() {
@@ -79,15 +79,32 @@ public class Customer {
         this.address = address;
     }
 
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
-                "id='" + _id + '\'' +
+                "_id='" + _id + '\'' +
                 ", customerName='" + customerName + '\'' +
-                ", customerEmail='" + customerEmail + '\'' +
+                ", email='" + email + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", userName='" + userName + '\'' +
                 ", address='" + address + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
