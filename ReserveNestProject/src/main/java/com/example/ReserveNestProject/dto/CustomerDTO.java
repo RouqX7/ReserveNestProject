@@ -1,15 +1,38 @@
-package com.example.ReserveNestProject.models;
+package com.example.ReserveNestProject.dto;
+
+import com.example.ReserveNestProject.models.Booking;
+import com.example.ReserveNestProject.models.Customer;
+
+import java.util.List;
 
 public class CustomerDTO {
+    private String id;
+
+
     private String customerName;
     private String email;
     private String mobile;
     private String userName;
     private String address;
     private String password;
+    private List<Booking> previousBookings;
+
+
+    public CustomerDTO(String customerName, String email,String id) {
+        this.customerName = customerName;
+        this.email = email;
+        this.id = id;
+    }
 
     // Standard getters and setters
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String _id) {
+        this.id = _id;
+    }
 
     public String getCustomerName() {
         return customerName;
@@ -59,8 +82,18 @@ public class CustomerDTO {
         this.password = password;
     }
 
+    public List<Booking> getPreviousBookings() {
+        return previousBookings;
+    }
+
+    public void setPreviousBookings(List<Booking> previousBookings) {
+        this.previousBookings = previousBookings;
+    }
+
     // Optionally, you can add a method to convert DTO to Customer model
     public Customer toCustomer() {
-        return new Customer(null, customerName, email, mobile, userName, address, password);
+        return new Customer(null, customerName, email, mobile, userName, address, password,previousBookings);
     }
+
+
 }

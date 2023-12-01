@@ -3,41 +3,40 @@ package com.example.ReserveNestProject.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Document(collection = "customers")
 public class Customer {
 
     @Id
-    private String _id;
+    private String id;
     private String customerName;
     private String email;
     private String mobile;
     private String userName;
     private String address;
     private String password;
+    private List<Booking> previousBookings;
+
 
     public  Customer(){
 
     }
 
-    public Customer(String _id, String customerName, String email,
-                    String mobile, String userName, String address,String password) {
-        this._id = _id;
+    public Customer(String id, String customerName, String email, String mobile, String userName, String address, String password, List<Booking> previousBookings) {
+        this.id = id;
         this.customerName = customerName;
         this.email = email;
         this.mobile = mobile;
         this.userName = userName;
         this.address = address;
         this.password = password;
+        this.previousBookings = new ArrayList<>();;
     }
 
-    public String getId() {
-        return _id;
-    }
 
-    public void setId(String id) {
-        this._id = id;
-    }
 
     public String getCustomerName() {
         return customerName;
@@ -79,12 +78,12 @@ public class Customer {
         this.address = address;
     }
 
-    public String get_id() {
-        return _id;
+    public String getId() {
+        return id;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -95,10 +94,18 @@ public class Customer {
         this.password = password;
     }
 
+    public List<Booking> getPreviousBookings() {
+        return previousBookings;
+    }
+
+    public void setPreviousBookings(List<Booking> previousBookings) {
+        this.previousBookings = previousBookings;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
-                "_id='" + _id + '\'' +
+                "_id='" + id + '\'' +
                 ", customerName='" + customerName + '\'' +
                 ", email='" + email + '\'' +
                 ", mobile='" + mobile + '\'' +

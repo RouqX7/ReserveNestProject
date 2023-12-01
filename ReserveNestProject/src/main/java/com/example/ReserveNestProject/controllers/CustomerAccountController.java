@@ -1,12 +1,16 @@
 package com.example.ReserveNestProject.controllers;
 
 import com.example.ReserveNestProject.models.Customer;
-import com.example.ReserveNestProject.models.CustomerDTO;
+import com.example.ReserveNestProject.dto.CustomerDTO;
+import com.example.ReserveNestProject.dto.LoginDTO;
 import com.example.ReserveNestProject.services.CustomerService;
 import com.example.ReserveNestProject.services.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -37,6 +41,25 @@ public class CustomerAccountController {
 
         return ResponseEntity.ok("Account created successfully");
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+        Optional<Customer> customerOptional = customerService.findByUsername(loginDTO.getUserName());
+
+        if (customerOptional.isPresent()) {
+            Customer customer = customerOptional.get();
+            if (customer.getPassword().equals(loginDTO.getPassword())) {
+                // Assuming CustomerDTO has a constructor accepting username, password, and email
+                CustomerDTO customerDTO = new CustomerDTO(customer.getCustomerName(), customer.getEmail(), customer.getId());
+                return ResponseEntity.ok(customerDTO);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+    }
+
+
+
+
 
 
     // Other customer account-related endpoints can be added here

@@ -5,6 +5,8 @@ import com.example.ReserveNestProject.repo.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomerService {
 
@@ -34,5 +36,9 @@ public class CustomerService {
     // Newly added method to save a new customer
     public void saveCustomer(Customer newCustomer) {
         customerRepo.save(newCustomer);
+    }
+
+    public Optional<Customer> findByUsername(String username) {
+        return customerRepo.findByUserName(username);
     }
 }

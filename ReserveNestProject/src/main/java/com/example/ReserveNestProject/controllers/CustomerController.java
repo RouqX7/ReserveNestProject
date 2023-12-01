@@ -39,18 +39,18 @@ public class CustomerController {
     }
 
     @PutMapping(value = "/edit/{id}")
-    private Customer update(@RequestBody Customer customer,@PathVariable(name = "id")String _id) {
+    private Customer update(@RequestBody Customer customer,@PathVariable(name = "id")String id) {
 
-        customer.setId(_id);
+        customer.setId(id);
         customerService.saveOrUpdate(customer);
         return customer;
 
     }
 
     @DeleteMapping("/delete/{id}")
-     private void deleteCustomer(@PathVariable("id") String _id){
+     private void deleteCustomer(@PathVariable("id") String id){
 
-        customerService.deleteCustomer(_id);
+        customerService.deleteCustomer(id);
         }
      @RequestMapping("/search/{id}")
         private Customer getCustomers(@PathVariable(name = "id")String customerId){
