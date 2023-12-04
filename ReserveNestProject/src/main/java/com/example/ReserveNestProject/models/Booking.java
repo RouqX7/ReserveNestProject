@@ -1,10 +1,17 @@
 package com.example.ReserveNestProject.models;
 
+import com.example.ReserveNestProject.states.BookingState;
+import com.example.ReserveNestProject.states.PendingState;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Date;
 
-public class Booking {
+
+@Document(collection = "bookings")
+public class Booking  {
 
     @Id
     private String id; // Unique identifier for the booking
@@ -19,7 +26,7 @@ public class Booking {
     private Date createdAt; // Timestamp when the booking was created
     private Date updatedAt; // Timestamp when the booking was last updated
     private String specialRequests;
-
+    private BookingState state;
     private boolean isBreakfastIncluded;
     private boolean isAirportPickupIncluded;
     private boolean isRoomUpgrade;
@@ -28,10 +35,12 @@ public class Booking {
     private boolean hasReservedParking;
     private boolean hasSpaAccess;
     private boolean hasDiningOptions;
+    private final PropertyChangeSupport support;
+    private String email;
 
 
     public Booking(String id, String customerId, String roomId, Date checkInDate, Date checkOutDate, int totalDays, double totalAmount, String transactionId, String status, Date createdAt, Date updatedAt, String specialRequests, boolean isBreakfastIncluded, boolean isAirportPickupIncluded, boolean isRoomUpgrade,
-                   boolean isLateCheckout, boolean hasSpecialAmenities, boolean hasReservedParking, boolean hasSpaAccess, boolean hasDiningOptions) {
+                   boolean isLateCheckout, BookingState state, boolean hasSpecialAmenities, boolean hasReservedParking, boolean hasSpaAccess, boolean hasDiningOptions, PropertyChangeSupport support, String email) {
         this.id = id;
         this.customerId = customerId;
         this.roomId = roomId;
@@ -52,10 +61,40 @@ public class Booking {
         this.hasReservedParking = hasReservedParking;
         this.hasSpaAccess = hasSpaAccess;
         this.hasDiningOptions = hasDiningOptions;
+        this.support = support;
+        this.email = email;
+        this.state = new PendingState();
+
     }
 
-    public Booking(){
 
+    public Booking() {
+        support = new PropertyChangeSupport(this);
+    }
+    // Method to add an observer
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+    // Method to remove an observer
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
+    }
+
+    // Method to notify observers of property changes
+    public void setStatus(String newStatus) {
+        String oldStatus = this.status;
+        this.status = newStatus;
+        this.status = status;
+        support.firePropertyChange("status", oldStatus, newStatus + "," + this.email);
+    }
+
+    public BookingState getState() {
+        return state;
+    }
+
+    public void setState(BookingState state) {
+        this.state = state;
     }
 
     public double calculateTotalPrice() {
@@ -131,9 +170,6 @@ public class Booking {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public Date getCreatedAt() {
         return createdAt;
@@ -226,7 +262,7 @@ public class Booking {
     @Override
     public String toString() {
         return "Booking{" +
-                "bookingId='" + id + '\'' +
+                "id='" + id + '\'' +
                 ", customerId='" + customerId + '\'' +
                 ", roomId='" + roomId + '\'' +
                 ", checkInDate=" + checkInDate +
@@ -238,6 +274,7 @@ public class Booking {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", specialRequests='" + specialRequests + '\'' +
+                ", state=" + state +
                 ", isBreakfastIncluded=" + isBreakfastIncluded +
                 ", isAirportPickupIncluded=" + isAirportPickupIncluded +
                 ", isRoomUpgrade=" + isRoomUpgrade +

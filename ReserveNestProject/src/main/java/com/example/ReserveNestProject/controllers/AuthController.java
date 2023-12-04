@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
+
 import java.util.Optional;
 
 @RestController
@@ -27,24 +26,6 @@ public class AuthController {
     @Autowired
     private CustomerService customerService;
 
-/*
-    @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginDTO loginDetails) {
-        Optional<Customer> customerOpt = customerRepo.findByEmail(loginDetails.getEmail());
-
-        // If the customer wasn't found by email, try by username
-        if (customerOpt.isEmpty()) {
-            customerOpt = customerRepo.findByUserName(loginDetails.getUserName());
-        }
-
-        // Now check if the customer is present and the password matches
-        if (customerOpt.isPresent() && customerOpt.get().getPassword().equals(loginDetails.getPassword())) {
-            return ResponseEntity.ok("Login successful");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-        }
-    }
-*/
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {

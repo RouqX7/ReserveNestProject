@@ -15,7 +15,6 @@ public class CancelledState implements BookingState {
 
     @Override
     public void handleCancel(Booking booking) {
-        // The booking is already cancelled, so this might be a no-op or error
         throw new IllegalStateException("Booking is already cancelled.");
     }
 }

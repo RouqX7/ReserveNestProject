@@ -1,15 +1,17 @@
 package com.example.ReserveNestProject.services;
 
 import com.example.ReserveNestProject.models.Booking;
+import com.example.ReserveNestProject.repo.BookingRepository;
 import com.example.ReserveNestProject.states.*;
 
 public class BookingContext {
     private BookingState currentState;
     private Booking booking;
 
+    private BookingRepository bookingRepository;
+
     public BookingContext(Booking booking) {
         this.booking = booking;
-        // Set the initial state based on the booking's current status
         switch (booking.getStatus()) {
             case "PENDING":
                 this.currentState = new PendingState();
@@ -58,17 +60,17 @@ public class BookingContext {
     // Delegate methods to current state
     public void checkIn() {
         currentState.handleCheckIn(booking);
-        // Update the state after the action
+        bookingRepository.save(booking); // Persist the updated booking
     }
 
     public void checkOut() {
         currentState.handleCheckOut(booking);
-        // Update the state after the action
+        bookingRepository.save(booking); // Persist the updated booking
     }
 
     public void cancel() {
         currentState.handleCancel(booking);
-        // Update the state after the action
+        bookingRepository.save(booking); // Persist the updated booking
     }
 
     public void setCurrentState(BookingState currentState) {

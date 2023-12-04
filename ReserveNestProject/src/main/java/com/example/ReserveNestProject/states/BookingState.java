@@ -7,6 +7,5 @@ public interface BookingState {
     void handleCheckIn(Booking booking);
     void handleCheckOut(Booking booking);
     void handleCancel(Booking booking);
-    // Other state-specific methods
 
 }

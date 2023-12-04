@@ -3,6 +3,7 @@ package com.example.ReserveNestProject.controllers;
 import com.example.ReserveNestProject.models.Customer;
 import com.example.ReserveNestProject.dto.CustomerDTO;
 import com.example.ReserveNestProject.dto.LoginDTO;
+import com.example.ReserveNestProject.observer.EmailNotificationListener;
 import com.example.ReserveNestProject.services.CustomerService;
 import com.example.ReserveNestProject.services.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class CustomerAccountController {
 
     private final ValidationService validationService;
     private final CustomerService customerService;
+    @Autowired
+    private EmailNotificationListener emailNotificationListener;
 
 
     @Autowired
@@ -35,9 +38,9 @@ public class CustomerAccountController {
         }
 
         Customer newCustomer = customerDTO.toCustomer();
-        customerService.saveCustomer(newCustomer);  // Save the new customer to the databaseoCustomer();
-        // Save newCustomer to database
-        // ...
+        customerService.saveCustomer(newCustomer);  // Save the new customer to the database Customer();
+        emailNotificationListener.sendEmailNotification(newCustomer.getEmail(), "Welcome to Our Service!");
+
 
         return ResponseEntity.ok("Account created successfully");
     }

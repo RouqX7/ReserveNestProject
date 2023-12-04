@@ -7,6 +7,8 @@ import HotelDashboard from './pages/Hotel/HotelDashboard';
 import BookingPage from './pages/Hotel/BookingPage';
 import DiscountManagement from './pages/Admin/DiscountManagement';
 import BookingConfirmation from './pages/Hotel/BookingConfirmation';
+import BookingCancelled from './pages/Hotel/BookingCanclled';
+import CustomerPage from './pages/Admin/CustomerPage';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,6 +38,8 @@ function App() {
             <Route path="/hotel-dashboard" element={isLoggedIn ? <HotelDashboard onLogout={handleLogout} /> : <Login onLoginSuccess={handleLogin} />} />
             <Route path="/book/:roomid/:fromDate/:toDate" element={<BookingPage />} />
             <Route path="/booking-confirmation" element={<BookingConfirmation />} />
+            <Route path="/admin-customers" element={<CustomerPage />} />
+            <Route path="/booking-cancelled" component={BookingCancelled} />
             <Route path="/admin-rooms" element={isLoggedIn ? <AdminRooms /> : <Login onLoginSuccess={handleLogin} />} />
             <Route path="/admin-discounts" element={isLoggedIn ? <DiscountManagement /> : <Login onLoginSuccess={handleLogin} />} />
             <Route path="/" element={isLoggedIn ? <HotelDashboard onLogout={handleLogout} /> : <Login onLoginSuccess={handleLogin} />} />

@@ -10,7 +10,6 @@ public class CheckedOutState implements BookingState {
 
     @Override
     public void handleCheckOut(Booking booking) {
-        // The booking is already checked out, so this might be a no-op or error
         throw new IllegalStateException("Booking is already checked out.");
     }
 
@@ -19,3 +18,4 @@ public class CheckedOutState implements BookingState {
         throw new IllegalStateException("Cannot cancel a booking after check-out.");
     }
 }
+

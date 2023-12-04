@@ -32,8 +32,6 @@ public class DiscountCalculator {
         return discountAmount;
     }
     private boolean isDiscountApplicable(Discount discount, Booking booking, Customer customer) {
-        // Implement the logic to check if the discount is applicable
-        // This can involve checking the discount type and seeing if it applies to the customer and booking
         return switch (discount.getType()) {
             case "FIRST_TIME_USER" -> isFirstTimeUser(customer);
             case "LOYALTY_DISCOUNT" -> isLoyalCustomer(customer);
@@ -75,6 +73,5 @@ public class DiscountCalculator {
     }
 
 
-    // Implement other methods...
     }
 

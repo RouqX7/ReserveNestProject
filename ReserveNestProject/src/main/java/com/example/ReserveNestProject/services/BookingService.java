@@ -1,18 +1,23 @@
 package com.example.ReserveNestProject.services;
 
+import com.example.ReserveNestProject.factories.PaymentPlan;
 import com.example.ReserveNestProject.models.Booking;
 import com.example.ReserveNestProject.models.BookingStatus;
 import com.example.ReserveNestProject.models.Customer;
+import com.example.ReserveNestProject.observer.EmailNotificationListener;
 import com.example.ReserveNestProject.repo.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.beans.PropertyChangeListener;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BookingService {
+    @Autowired
+    private PaymentService paymentService;
     private final BookingRepository bookingRepository;
     private final CustomerService customerService; //
     @Autowired
@@ -26,8 +31,9 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
-    public void saveOrUpdate(Booking booking) {
+    public Booking saveOrUpdate(Booking booking) {
         bookingRepository.save(booking); // Save or update the room
+        return booking;
     }
 
 
@@ -44,9 +50,34 @@ public class BookingService {
             customerService.saveOrUpdate(customer);
         }
 
+        // Instantiate and register the PropertyChangeListener
+        PropertyChangeListener emailListener = new EmailNotificationListener();
+        booking.addPropertyChangeListener(emailListener);
+
         booking.setStatus(BookingStatus.PENDING.toString());
+
+        // Save the booking with the listener attached
         return bookingRepository.save(booking);
     }
+
+    public Booking finalizeBooking(String bookingId, String paymentPlanType) {
+        Booking booking = getBookingById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        PaymentPlan paymentPlan = paymentService.processPayment(booking, paymentPlanType);
+
+        // Using BookingContext for state transition
+        BookingContext context = new BookingContext(booking);
+        if (paymentPlan.isSuccessful()) { // Assuming you have a way to check if payment was successful
+            context.toConfirmedState();
+        } else {
+            // Handle unsuccessful payment scenario
+        }
+        return saveOrUpdate(context.getBooking());
+    }
+
+
+
 
 
 
@@ -81,31 +112,26 @@ public class BookingService {
                 });
     }
 
+
     public Booking updateBookingStatus(String bookingId, BookingStatus newStatus) {
         return bookingRepository.findById(bookingId).map(booking -> {
             BookingContext context = new BookingContext(booking);
+
             switch (newStatus) {
-                case PENDING:
-                    context.toPendingState();
-                    break;
-                case CONFIRMED:
-                    context.toConfirmedState();
-                    break;
                 case CHECKED_IN:
-                    context.toCheckedInState();
+                    context.checkIn();
                     break;
                 case CANCELED:
-                    context.toCancelledState();
+                    context.cancel();
                     break;
                 case CHECKED_OUT:
-                    context.toCheckedOutState();
+                    context.checkOut();
                     break;
             }
-            booking.setStatus(context.getCurrentState().toString());
-            booking.setUpdatedAt(new Date());
             return bookingRepository.save(booking);
         }).orElseThrow(() -> new RuntimeException("Booking not found"));
     }
+
 
     public Booking confirmBooking(Booking booking) {
         // If the booking already has an ID, we're confirming an existing booking.
@@ -125,6 +151,15 @@ public class BookingService {
             return bookingRepository.save(booking);
         }
     }
+
+    public Booking createAndConfirmBooking(Booking booking) {
+        // Set the status of the booking to CONFIRMED
+        booking.setStatus(BookingStatus.CONFIRMED.toString());
+
+        // Save the booking to the database
+        return bookingRepository.save(booking);
+    }
+
 
 
 }

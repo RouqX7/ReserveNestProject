@@ -22,6 +22,21 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+
+
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+
+
 		<!-- Jakarta Bean Validation API -->
 		<dependency>
 			<groupId>jakarta.validation</groupId>
@@ -31,11 +46,10 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk-s3</artifactId>
-			<version>1.12.118</version> <!-- Use the latest version -->
+			<version>1.12.470</version>
 		</dependency>
 
 
-		<!-- Hibernate Validator - Bean Validation 3.0 Implementation -->
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>

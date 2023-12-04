@@ -43,17 +43,4 @@ public class AddOnService {
     }
 
 
-
-//    private Booking createDummyBookingWithAllAddOns() {
-//        Booking dummyBooking = new Booking();
-//        dummyBooking.setBreakfastIncluded(true);
-//        dummyBooking.setAirportPickupIncluded(true);
-//        dummyBooking.setRoomUpgrade(true);
-//        dummyBooking.setLateCheckout(true);
-//        dummyBooking.setHasSpecialAmenities(true);
-//        dummyBooking.setHasReservedParking(true);
-//        dummyBooking.setHasSpaAccess(true);
-//        dummyBooking.setHasDiningOptions(true);
-//        return dummyBooking;
-//    }
 }

@@ -64,7 +64,6 @@ public class BookingPriceService {
             case "LAST_MINUTE" -> bookingDate.isAfter(LocalDate.now()) && bookingDate.isBefore(validityEnd);
             case "BULK" -> booking.getTotalDays() > 7;
             default ->
-                // Add more cases as necessary...
                     false;
         };
     }

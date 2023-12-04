@@ -1,8 +1,12 @@
 package com.example.ReserveNestProject.controllers;
 
 import com.example.ReserveNestProject.ErrorResponse;
+import com.example.ReserveNestProject.command.BookingCommandInvoker;
+import com.example.ReserveNestProject.command.CancelBookingCommand;
+import com.example.ReserveNestProject.command.Command;
 import com.example.ReserveNestProject.dto.BookingRequest;
 import com.example.ReserveNestProject.dto.DiscountDetail;
+import com.example.ReserveNestProject.dto.PaymentPlanRequest;
 import com.example.ReserveNestProject.models.*;
 import com.example.ReserveNestProject.services.*;
 import org.slf4j.Logger;
@@ -38,6 +42,11 @@ public class BookingController {
 
     @Autowired
     private  RoomService roomService;
+    @Autowired
+    private BookingCommandInvoker commandInvoker;
+
+    @Autowired
+    private CancelBookingCommand cancelBookingCommand;
 
     private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
 
@@ -91,12 +100,17 @@ public class BookingController {
 
         return ResponseEntity.ok(response);
     }
+    @PostMapping("/finalize/{bookingId}")
+    public ResponseEntity<?> finalizeBooking(@PathVariable String bookingId, @RequestBody PaymentPlanRequest planRequest) {
+        Booking finalizedBooking = bookingService.finalizeBooking(bookingId, planRequest.getPlanType());
+        return ResponseEntity.ok(finalizedBooking);
+    }
 
     @PostMapping("/confirm")
-    public ResponseEntity<?> confirmBooking(@RequestBody Booking booking) {
+    public ResponseEntity<?> confirmBooking(@RequestBody BookingRequest bookingRequest) {
         try {
-            // Logic to confirm the booking
-            Booking confirmedBooking = bookingService.confirmBooking(booking);
+            Booking booking = convertToBooking(bookingRequest);
+            Booking confirmedBooking = bookingService.createAndConfirmBooking(booking);
             return ResponseEntity.ok(confirmedBooking);
         } catch (Exception e) {
             ErrorResponse errorResponse = new ErrorResponse("Error confirming booking: " + e.getMessage());
@@ -105,9 +119,47 @@ public class BookingController {
     }
 
 
+    @PostMapping("/check-in/{bookingId}")
+    public ResponseEntity<?> checkIn(@PathVariable String bookingId) {
+        Booking booking = bookingService.getBookingById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        BookingContext context = new BookingContext(booking);
+        context.checkIn();
+
+        bookingService.saveOrUpdate(context.getBooking());
+
+        return ResponseEntity.ok("Checked in successfully.");
+    }
 
 
+    @PostMapping("/check-out/{bookingId}")
+    public ResponseEntity<?> checkOut(@PathVariable String bookingId) {
+        Booking booking = bookingService.getBookingById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
 
+        BookingContext context = new BookingContext(booking);
+        context.checkOut(); // Delegate to the BookingContext
+
+        bookingService.saveOrUpdate(context.getBooking()); // Save the updated booking
+
+        return ResponseEntity.ok("Checked out successfully.");
+    }
+
+    @PostMapping("/cancel/{id}")
+    public ResponseEntity<?> cancelBooking(@PathVariable String id) {
+        Optional<Booking> bookingOptional = bookingService.getBookingById(id);
+        if (bookingOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Booking not found."));
+        }
+
+        Booking booking = bookingOptional.get();
+        cancelBookingCommand.setBooking(booking); // Set the booking on the command
+        commandInvoker.setCommand(cancelBookingCommand); // Set the command in the invoker
+        commandInvoker.executeCommand(); // Execute the command
+
+        return ResponseEntity.ok("Booking cancelled successfully.");
+    }
 
 
     private DiscountDetail convertToDiscountDetail(Discount discount, double initialPrice) {
@@ -128,7 +180,6 @@ public class BookingController {
 
         if (booking.isBreakfastIncluded()) addOnsPrice += addOnPrices.getOrDefault("breakfastIncluded", 0.0);
         if (booking.isAirportPickupIncluded()) addOnsPrice += addOnPrices.getOrDefault("airportPickupIncluded", 0.0);
-        // Continue for other add-ons...
 
         return addOnsPrice;
     }
@@ -187,6 +238,8 @@ public class BookingController {
         bookingService.deleteBooking(id);
         return ResponseEntity.ok("Booking deleted successfully");
     }
+
+
 
     @RequestMapping("/search/{id}")
     private Optional<Booking> getBookingById(@PathVariable(name = "id")String bookingId){

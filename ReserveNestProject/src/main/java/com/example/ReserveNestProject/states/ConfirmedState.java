@@ -1,13 +1,17 @@
 package com.example.ReserveNestProject.states;
 
 import com.example.ReserveNestProject.models.Booking;
+import com.example.ReserveNestProject.repo.BookingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class ConfirmedState implements BookingState {
+    @Autowired
+    private BookingRepository bookingRepository;
     @Override
     public void handleCheckIn(Booking booking) {
-        // Handle check-in logic for a confirmed booking
         booking.setStatus("CheckedIn");
-        // Update booking in the database, etc.
+        booking.setState(new CheckedInState());
+        bookingRepository.save(booking);
     }
 
     @Override
@@ -17,8 +21,8 @@ public class ConfirmedState implements BookingState {
 
     @Override
     public void handleCancel(Booking booking) {
-        // Handle cancellation logic for a confirmed booking
         booking.setStatus("Cancelled");
-        // Update booking in the database, etc.
+        booking.setState(new CancelledState());
+        bookingRepository.save(booking);
     }
 }
