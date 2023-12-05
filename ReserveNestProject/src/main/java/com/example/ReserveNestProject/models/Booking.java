@@ -14,17 +14,17 @@ import java.util.Date;
 public class Booking  {
 
     @Id
-    private String id; // Unique identifier for the booking
-    private String customerId; // Identifier linking to the customer who made the booking
-    private String roomId; // Identifier linking to the room that is booked
-    private Date checkInDate; // Date and time when the customer plans to check in
-    private Date checkOutDate; // Date and time when the customer plans to check out
-    private int totalDays; // Total number of days for the booking
-    private double totalAmount; // Total cost of the stay
-    private String transactionId; // Identifier for the transaction
-    private String status; // Status of the booking (e.g., booked, cancelled)
-    private Date createdAt; // Timestamp when the booking was created
-    private Date updatedAt; // Timestamp when the booking was last updated
+    private String id;
+    private String customerId;
+    private String roomId; //
+    private Date checkInDate;
+    private Date checkOutDate;
+    private int totalDays;
+    private double totalAmount;
+    private String transactionId;
+    private String status;
+    private Date createdAt;
+    private Date updatedAt;
     private String specialRequests;
     private BookingState state;
     private boolean isBreakfastIncluded;

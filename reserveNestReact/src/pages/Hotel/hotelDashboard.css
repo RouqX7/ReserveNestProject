@@ -1,0 +1,7 @@
+.date-picker-container {
+    display: flex;
+    justify-content: flex-start; /* Aligns date picker to the left */
+    align-items: center; /* Aligns items vertically */
+    padding-left: 15px; /* Adds padding to the left for some spacing */
+    margin-bottom: 20px; /* Adds bottom margin */
+}

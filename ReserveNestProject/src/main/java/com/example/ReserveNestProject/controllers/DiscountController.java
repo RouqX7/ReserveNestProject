@@ -44,5 +44,4 @@ public class DiscountController {
         return ResponseEntity.ok(discounts);
     }
 
-    // Additional endpoints as needed
 }

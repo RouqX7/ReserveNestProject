@@ -57,7 +57,6 @@ public class BookingContext {
         return currentState;
     }
 
-    // Delegate methods to current state
     public void checkIn() {
         currentState.handleCheckIn(booking);
         bookingRepository.save(booking); // Persist the updated booking

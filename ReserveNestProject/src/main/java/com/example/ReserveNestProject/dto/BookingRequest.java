@@ -206,6 +206,4 @@ public class BookingRequest {
         this.hasDiningOptions = hasDiningOptions;
     }
 
-    // Getters and Setters
-    // ...
 }

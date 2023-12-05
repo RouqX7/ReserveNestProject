@@ -17,7 +17,7 @@ public class PendingState implements BookingState {
     public void handleCancel(Booking booking) {
         booking.setStatus("Cancelled");
         booking.setState(new CancelledState());
-        // Update booking in the database...
+        // Update booking in the database.
     }
 
 }

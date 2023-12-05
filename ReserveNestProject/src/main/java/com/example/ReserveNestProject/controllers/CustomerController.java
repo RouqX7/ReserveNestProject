@@ -32,7 +32,6 @@ public class CustomerController {
             }
             return new ResponseEntity<>(customers, HttpStatus.OK);
         } catch (Exception e) {
-            // Log the exception details for debugging
             e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -57,9 +56,4 @@ public class CustomerController {
 
         return  customerService.getCustomerById(customerId);
         }
-
-
-
-
-
 }

@@ -24,7 +24,6 @@ public class CustomerDTO {
         this.id = id;
     }
 
-    // Standard getters and setters
 
     public String getId() {
         return id;
@@ -90,7 +89,6 @@ public class CustomerDTO {
         this.previousBookings = previousBookings;
     }
 
-    // Optionally, you can add a method to convert DTO to Customer model
     public Customer toCustomer() {
         return new Customer(null, customerName, email, mobile, userName, address, password,previousBookings);
     }

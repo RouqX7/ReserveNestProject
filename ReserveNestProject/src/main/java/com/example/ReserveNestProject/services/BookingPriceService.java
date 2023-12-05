@@ -30,7 +30,6 @@ public class BookingPriceService {
         Customer customer = customerService.getCustomerById(booking.getCustomerId());
         if (customer == null) {
             throw new IllegalStateException("Customer with ID " + booking.getCustomerId() + " not found.");
-            // or other logic as per your business requirements
         }
 
         List<Discount> discounts = discountService.getApplicableDiscounts(booking, customer);
@@ -69,7 +68,6 @@ public class BookingPriceService {
     }
 
     private boolean isFirstTimeUser(Customer customer) {
-        // Assuming customer has a method to get previous bookings
         return customer.getPreviousBookings().isEmpty();
     }
 

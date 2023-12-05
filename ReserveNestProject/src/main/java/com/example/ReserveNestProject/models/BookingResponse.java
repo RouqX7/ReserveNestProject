@@ -153,5 +153,4 @@ public class BookingResponse {
 
 
 
-    // Getters and setters for each field
 }

@@ -15,7 +15,6 @@ public class PaymentService {
 
         paymentPlan.processPayment(booking);
 
-        // Additional logic based on payment plan
 
         return paymentPlan;
     }

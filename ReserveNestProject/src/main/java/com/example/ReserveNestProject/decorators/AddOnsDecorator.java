@@ -18,23 +18,18 @@ public class AddOnsDecorator extends Booking {
     }
 
     public double calculateAddOnsPrice() {
-        // Implement the actual logic to calculate the price for add-ons
         double addOnsPrice = 0;
-
-        // Example: Check if breakfast is included and add its price
         if (decoratedBooking.isBreakfastIncluded()) {
-            addOnsPrice += 15;  // Example price for breakfast
+            addOnsPrice += 15;
         }
-
-        // Example: Check if airport pickup is included and add its price
         if (decoratedBooking.isAirportPickupIncluded()) {
-            addOnsPrice += 30;  // Example price for airport pickup
+            addOnsPrice += 30;
         }
         if (decoratedBooking.isRoomUpgrade()) {
-            addOnsPrice += 100;  // Example price for room upgrade
+            addOnsPrice += 100;
         }
         if (decoratedBooking.isLateCheckout()) {
-            addOnsPrice += 50;  // Price for late checkout
+            addOnsPrice += 50;
         }
         if (decoratedBooking.isHasSpecialAmenities()){
             addOnsPrice +=  50;
@@ -48,11 +43,6 @@ public class AddOnsDecorator extends Booking {
         if (decoratedBooking.isHasDiningOptions()){
             addOnsPrice += 30;
         }
-
-
-        // Add more conditions for other add-ons as necessary
-        // ...
-
         return addOnsPrice;
     }
 }

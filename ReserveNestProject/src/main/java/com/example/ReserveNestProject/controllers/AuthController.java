@@ -39,7 +39,6 @@ public class AuthController {
         if (customerOpt.isPresent()) {
             Customer customer = customerOpt.get();
             if (customer.getPassword().equals(loginDTO.getPassword())) {
-                // Ensure that the correct fields are mapped to the DTO
                 CustomerDTO customerDTO = new CustomerDTO(customer.getCustomerName(), customer.getEmail(), customer.getId());
                 return ResponseEntity.ok(customerDTO);
             }

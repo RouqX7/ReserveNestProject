@@ -1,6 +1,6 @@
 // src/components/CustomerForm.js
 import React, { useState, useEffect } from "react";
-import axios from 'axios'; // Import axios for API calls
+import axios from 'axios'; 
 
 const CustomerForm = ({ onSave, initialCustomerData, formType, onToggleFormType }) => {
   const [customer, setCustomer] = useState({
@@ -12,7 +12,6 @@ const CustomerForm = ({ onSave, initialCustomerData, formType, onToggleFormType 
     password: "",
   });
 
-  // If customerData is provided, initialize form with this data
   useEffect(() => {
     if (initialCustomerData) {
       setCustomer(initialCustomerData);

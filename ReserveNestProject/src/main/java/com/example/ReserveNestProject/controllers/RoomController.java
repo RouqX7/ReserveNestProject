@@ -60,5 +60,4 @@ public class RoomController {
     }
 
 
-    // Additional endpoints as necessary...
 }

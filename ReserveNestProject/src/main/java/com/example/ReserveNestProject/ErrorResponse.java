@@ -3,7 +3,6 @@ package com.example.ReserveNestProject;
 public class ErrorResponse {
     private String message;
 
-    // Constructor, getters, and setters
     public ErrorResponse(String message) {
         this.message = message;
     }

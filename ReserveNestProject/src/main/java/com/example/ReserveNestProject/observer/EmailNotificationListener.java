@@ -26,16 +26,14 @@ public class EmailNotificationListener implements PropertyChangeListener {
 
     public void sendEmailNotification(String newStatus, String to) {
         // Defining recipient, sender, host,
-        String from = "farouq2169@gmail.com";  // Replace with your Gmail address
-        String host = "smtp.gmail.com";  // or a real SMTP server
-
+        String from = "farouq2169@gmail.com";
+        String host = "smtp.gmail.com";
         // Get system properties
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.auth", "true");
-
         // Setup mail server
         properties.setProperty("smtp.gmail.com", host);
 
@@ -48,19 +46,14 @@ public class EmailNotificationListener implements PropertyChangeListener {
         try {
             // Create a default MimeMessage object
             MimeMessage message = new MimeMessage(session);
-
             // Set From: header field
             message.setFrom(new InternetAddress(from));
-
             // Set To: header field
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
             // Set Subject: header field
             message.setSubject("Your Booking Status has been updated!");
-
             // Set the actual message
             message.setText("Dear Customer,\n\nYour booking status has been updated to: " + newStatus);
-
             // Send message
             Transport.send(message);
             System.out.println("Sent email notification successfully...");
@@ -68,9 +61,6 @@ public class EmailNotificationListener implements PropertyChangeListener {
             mex.printStackTrace();
         }
 
-
-
     }
-
 
 }

@@ -52,7 +52,6 @@ public class CustomerAccountController {
         if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
             if (customer.getPassword().equals(loginDTO.getPassword())) {
-                // Assuming CustomerDTO has a constructor accepting username, password, and email
                 CustomerDTO customerDTO = new CustomerDTO(customer.getCustomerName(), customer.getEmail(), customer.getId());
                 return ResponseEntity.ok(customerDTO);
             }
@@ -65,5 +64,4 @@ public class CustomerAccountController {
 
 
 
-    // Other customer account-related endpoints can be added here
 }

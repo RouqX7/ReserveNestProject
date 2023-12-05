@@ -85,7 +85,7 @@ public class DiscountService {
                 return isLastMinute(booking);
             case "BULK":
                 return isBulk(booking);
-            // Add more cases as necessary
+            // Add more cases if necessary
             default:
                 return false;
         }

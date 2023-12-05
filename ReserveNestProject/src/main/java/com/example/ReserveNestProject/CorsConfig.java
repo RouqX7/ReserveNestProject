@@ -13,7 +13,7 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("http://localhost:5173/"); // You can restrict to specific domains in production
+        config.addAllowedOriginPattern("http://localhost:5173/");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 

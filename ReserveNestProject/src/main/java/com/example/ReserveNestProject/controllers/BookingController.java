@@ -171,19 +171,8 @@ public class BookingController {
         detail.setAmountApplied(amountApplied);
 
         detail.setDescription(discount.getDescription());
-        // Set other fields as required
         return detail;
     }
-    public double calculateAddOnsPrice(Booking booking) {
-        Map<String, Double> addOnPrices = addOnService.getAddOnPrices();
-        double addOnsPrice = 0;
-
-        if (booking.isBreakfastIncluded()) addOnsPrice += addOnPrices.getOrDefault("breakfastIncluded", 0.0);
-        if (booking.isAirportPickupIncluded()) addOnsPrice += addOnPrices.getOrDefault("airportPickupIncluded", 0.0);
-
-        return addOnsPrice;
-    }
-
     private Booking convertToBooking(BookingRequest bookingRequest) {
         // Convert BookingRequest DTO to Booking object
         Booking booking = new Booking();
@@ -247,5 +236,4 @@ public class BookingController {
         return  bookingService.getBookingById(bookingId);
     }
 
-    // Additional endpoints as necessary...
 }

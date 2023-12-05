@@ -31,7 +31,6 @@ public class AddOnService {
 
         if (booking.isBreakfastIncluded()) addOnsTotalPrice += addOnPrices.getOrDefault("breakfastIncluded", 0.0);
         if (booking.isAirportPickupIncluded()) addOnsTotalPrice += addOnPrices.getOrDefault("airportPickupIncluded", 0.0);
-        // Continue for other add-ons
         if (booking.isRoomUpgrade()) addOnsTotalPrice += addOnPrices.getOrDefault("roomUpgrade", 0.0);
         if (booking.isLateCheckout()) addOnsTotalPrice += addOnPrices.getOrDefault("lateCheckout", 0.0);
         if (booking.isHasSpecialAmenities()) addOnsTotalPrice += addOnPrices.getOrDefault("specialAmenities", 0.0);

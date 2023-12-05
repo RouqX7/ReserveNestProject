@@ -38,7 +38,6 @@ public class DiscountCalculator {
             case "EARLY_BIRD" -> isEarlyBird(booking);
             case "LAST_MINUTE" -> isLastMinute(booking);
             case "BULK" -> isBulk(booking);
-            // Add more cases as necessary
             default -> false;
         };
     }

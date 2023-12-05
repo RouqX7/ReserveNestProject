@@ -12,20 +12,14 @@ public class Room {
     @Id
     private String _id;
     private int maxCount;
-    private String phoneNumber; // Consider validation for phone numbers
-    private double rentPerDay; // Assuming this could be a value like "99.99"
+    private String phoneNumber;
+    private double rentPerDay;
     private String description;
     private ArrayList<Booking> currentBookings = new ArrayList<>();
     private boolean available;
     private String primaryImageUrl;
     private List<String> expandedImageUrls;
     private String type;
-
-
-
-
-    // Constructor, getters, and setters...
-
 
     public Room(String name, String _id, int maxCount, String phoneNumber, double rentPerDay, String description, ArrayList<Booking> currentBookings,
                 boolean available, String primaryImageUrl, String type,

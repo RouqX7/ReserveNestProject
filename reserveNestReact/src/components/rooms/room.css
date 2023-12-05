@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+/* Card container */
+.bs {
+    box-shadow: rgb(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex; 
+    align-items: center; 
+    background: #fff; 
+}
+
+/* Image styling */
+.smallimg {
+    height: auto; 
+    width: 100%; 
+    border-radius: 5px; 
+    object-fit: cover; 
+    max-width: 200px;
+    max-height: 200px; 
+}
+
+.h1, h1 { 
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif; 
+    margin: 0; 
+}
+
+.btn {
+    background-color: black;
+    color: white;
+    box-shadow: none;
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Add padding */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+/* Big image for modal view */
+.bigimg {
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 400px; /* Set a max-height */
+}
+
+/* Optional: Add some space between the image and the details */
+.col-md-4 {
+    margin-right: 20px;
+}
+
+/* Optional: Set a max-width for the text container */
+.col-md-7 {
+    max-width: calc(100% - 220px); /* Assuming image + margin is 220px */
+}

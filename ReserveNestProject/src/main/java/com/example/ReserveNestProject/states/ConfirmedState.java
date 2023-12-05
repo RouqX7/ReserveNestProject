@@ -13,12 +13,10 @@ public class ConfirmedState implements BookingState {
         booking.setState(new CheckedInState());
         bookingRepository.save(booking);
     }
-
     @Override
     public void handleCheckOut(Booking booking) {
         throw new IllegalStateException("Cannot check out a booking that is not checked in.");
     }
-
     @Override
     public void handleCancel(Booking booking) {
         booking.setStatus("Cancelled");

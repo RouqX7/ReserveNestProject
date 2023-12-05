@@ -4,13 +4,9 @@ import com.example.ReserveNestProject.models.Booking;
 import org.springframework.stereotype.Component;
 @Component
 public class CancelBookingCommand implements Command {
-
     private Booking booking;
-
-    // No-args constructor for Spring to instantiate this as a bean
     public CancelBookingCommand() {
     }
-
     public void setBooking(Booking booking) {
         this.booking = booking;
     }

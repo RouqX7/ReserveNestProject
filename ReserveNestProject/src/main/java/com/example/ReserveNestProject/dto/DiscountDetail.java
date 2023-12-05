@@ -8,7 +8,7 @@ public class DiscountDetail {
     private String description;
     private String validityPeriodStart;
     private String validityPeriodEnd;
-    private String blackoutDates; // This could be a List if multiple dates
+    private String blackoutDates;
     private String termsAndConditions;
 
 

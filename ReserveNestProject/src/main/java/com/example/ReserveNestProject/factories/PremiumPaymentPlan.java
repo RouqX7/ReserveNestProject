@@ -9,7 +9,7 @@ public class PremiumPaymentPlan implements PaymentPlan {
     public void processPayment(Booking booking) {
         double basePrice = booking.getTotalAmount();
         double premiumPrice = basePrice * 1.10;
-        // Not going to fully finish this because were not using andy kind of money here
+        // Not going to fully finish this because were not using money yet
 
     }
 

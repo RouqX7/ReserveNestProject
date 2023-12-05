@@ -1,4 +1,3 @@
-// in src/components/CustomerList.js
 import React from 'react';
 
 const CustomerList = ({ customers, onEdit, onDelete }) => {

@@ -39,7 +39,6 @@ public class RoomService {
                     room.setPhoneNumber(roomDetails.getPhoneNumber());
                     room.setRentPerDay(roomDetails.getRentPerDay());
                     room.setDescription(roomDetails.getDescription());
-                    // Assuming you want to update current bookings as well
                     room.setCurrentBookings(roomDetails.getCurrentBookings());
                     room.setType(roomDetails.getType());
                     room.setPrimaryImageUrl(roomDetails.getPrimaryImageUrl());

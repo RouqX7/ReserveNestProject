@@ -72,6 +72,7 @@ public class BookingService {
             context.toConfirmedState();
         } else {
             // Handle unsuccessful payment scenario
+            //not completed
         }
         return saveOrUpdate(context.getBooking());
     }
@@ -143,11 +144,10 @@ public class BookingService {
             // Other logic if needed, e.g., sending confirmation email
             return bookingRepository.save(existingBooking);
         } else {
-            // This is a new booking, save it first.
+            // This is a new booking.
             booking.setStatus(BookingStatus.CONFIRMED.toString()); // Set the status to CONFIRMED directly
             booking.setCreatedAt(new Date()); // Set the created time
             booking.setUpdatedAt(booking.getCreatedAt()); // Set the updated time to the created time
-            // Other logic if needed for a new booking
             return bookingRepository.save(booking);
         }
     }
@@ -155,7 +155,6 @@ public class BookingService {
     public Booking createAndConfirmBooking(Booking booking) {
         // Set the status of the booking to CONFIRMED
         booking.setStatus(BookingStatus.CONFIRMED.toString());
-
         // Save the booking to the database
         return bookingRepository.save(booking);
     }
