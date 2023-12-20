@@ -25,7 +25,7 @@ public class CustomerService {
         return customerRepo.findAll(); // Retrieve all customers
     }
 
-    public void deleteCustomer(String id) {
+    public void  deleteCustomer(String id) {
         customerRepo.deleteById(id); // Delete a customer by ID
     }
 

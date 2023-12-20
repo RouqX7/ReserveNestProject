@@ -12,11 +12,10 @@ import java.util.Date;
 
 @Document(collection = "bookings")
 public class Booking  {
-
     @Id
     private String id;
     private String customerId;
-    private String roomId; //
+    private String roomId;
     private Date checkInDate;
     private Date checkOutDate;
     private int totalDays;
